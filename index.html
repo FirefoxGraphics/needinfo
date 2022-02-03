@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Needinfo Leaderboard</title>
+    <link rel="stylesheet" type="text/css" href="css/needinfo.css">
+    <script src="js/libs/jquery-1.12.0.min.js"></script>
+    <script src="js/libs/jquery-cross-origin.min.js"></script>
+    <script src="js/libs/purl-2.3.1/purl.js"></script>
+    <script src="js/libs/ical.js"></script>
+    <script src="js/needinfo.js"></script>
+  </link>
+  </head>
+  <body id="body">
+    <div id="header-bg" class="header-bg"></div>
+    <div class="header"><a href="images/needinfo_full.png" target="_blank" rel="noopener noreferrer"><img id="title-img" src="images/needinfo.png"/></a>
+      <div id="title">Needinfo Leaderboard</div>
+      <div id="subtitle" class="subtitle">for the subtitle goes</div>
+    </div>
+    <div id="announcement" class="announcement">
+        <button class="openButton" onclick="openSettings()"><strong>Settings</strong></button>
+    </div>
+    <div class="settingsPopup">
+      <div class="formPopup" id="popupForm">
+        <form action="/action_page.php" class="formContainer">
+          <h2>Settings</h2>
+          <label for="api-key">
+            <strong><a href="https://wiki.mozilla.org/Bugzilla:REST_API#with_two_factor_authentication" target="_blank" rel="noopener noreferrer">API Key</a></strong>
+          </label>
+          <input type="text" id="api-key" placeholder="Bugzilla API Key" name="key"/>
+
+          <label for="persist-values">Always remember my settings</label>
+          <input type="checkbox" id="persist-values" placeholder="Remember" name="remember"/>
+
+          <button type="submit" class="btn" id="applySettingsButton">Apply</button>
+          <button type="button" class="btn cancel" onclick="closeSettings()">Cancel</button>
+        </form>
+      </div>
+    </div>
+    <center><div id="content"><h2>No 'needinfo' information currently available</h2></div></center>
+  </body>
+</html>

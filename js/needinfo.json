@@ -1,0 +1,24 @@
+{
+    "needinfo" : {
+        "bugzilla_rest_url": "https://bugzilla.mozilla.org/rest/bug?",
+        "fields_query" : "f1=requestees.login_name&o2=equals&v2=needinfo%3F&f2=flagtypes.name&o1=equals&v1={id}%40mozilla.com&include_fields=id,summary",
+        "api_key" : "",
+        "contestants" : {
+            "Andrew" : "aosmond",
+            "Jamie" : "jnicol",
+            "Brad" : "bwerth",
+            "Nical" : "nsilva",
+            "Jeff" : "jmuizelaar",
+            "Sotaro" : "sikeda",
+            "JimM" : "jmathies",
+            "JimB" : "jblandy",
+            "Jon" : "jbauman",
+            "Lee" : "lsalzman",
+            "Bob" : "bhood",
+            "Miko" : "mmynttinen",
+            "Kelsey" : "jbilbert",
+            "Glenn" : "gwatson",
+            "Dzmitry" : "dmalyshau"
+        }
+    }
+}
