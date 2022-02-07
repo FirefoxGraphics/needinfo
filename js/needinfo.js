@@ -171,21 +171,26 @@ function displayCountFor(key, data)
         star = "<img id=\"gold-star\" src=\"images/runner-up.png\" width=\"30\">";
     }
 
-    // build a Bugzilla "bug list" so clicking on the count will
-    // take you to all your needinfos
-    var bug_list = NEEDINFO.bugzilla_bug_list;
-    var bug_ids = "";
-    for (i = 0; i < data.bugs.length; ++i) {
-        if(bug_ids.length != 0) {
-            bug_ids += ",";
+    var bug_link = "" + ni_count;
+    if(ni_count != 0) {
+        // build a Bugzilla "bug list" so clicking on the count will
+        // take you to all your needinfos; e.g.
+        // https://bugzilla.mozilla.org/buglist.cgi?bug_id=1680458%2C1695986%2C1732373
+
+        var bug_list = NEEDINFO.bugzilla_bug_list;
+        var bug_ids = "";
+        for (i = 0; i < data.bugs.length; ++i) {
+            if(bug_ids.length != 0) {
+                bug_ids += ",";
+            }
+            bug_ids += data.bugs[i].id;
         }
-        bug_ids += data.bugs[i].id;
+        bug_list += encodeURIComponent(bug_ids);
+        bug_link = "<a href=\"" + bug_list + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + ni_count + "</a>";
     }
-    bug_list += encodeURIComponent(bug_ids);
-    // https://bugzilla.mozilla.org/buglist.cgi?bug_id=1680458%2C1695986%2C1732373
 
     $("#star_" + key).replaceWith(star);
-    $("#data_" + key).replaceWith("<div id=\"data_" + key + "\" class=\"" + klass + "\"><a href=\"" + bug_list + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + ni_count + "</a></div>");
+    $("#data_" + key).replaceWith("<div id=\"data_" + key + "\" class=\"" + klass + "\">" + bug_link + "</div>");
 }
 
 function openSettings() {
