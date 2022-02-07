@@ -55,24 +55,25 @@ $(document).ready(function () {
     var data = {
         "needinfo" : {
             "bugzilla_rest_url": "https://bugzilla.mozilla.org/rest/bug?",
-            "fields_query" : "f1=requestees.login_name&o2=equals&v2=needinfo%3F&f2=flagtypes.name&o1=equals&v1={id}%40mozilla.com&include_fields=id,summary",
+            "bugzilla_bug_list" : "https://bugzilla.mozilla.org/buglist.cgi?bug_id=",
+            "fields_query" : "f1=requestees.login_name&o2=equals&v2=needinfo%3F&f2=flagtypes.name&o1=equals&v1={id}&include_fields=id,summary",
             "api_key" : "",
             "contestants" : {
-                "Andrew" : "aosmond",
-                "Jamie" : "jnicol",
-                "Brad" : "bwerth",
-                "Nical" : "nsilva",
-                "Jeff" : "jmuizelaar",
-                "Sotaro" : "sikeda",
-                "JimM" : "jmathies",
-                "JimB" : "jblandy",
-                "Jon" : "jbauman",
-                "Lee" : "lsalzman",
-                "Bob" : "bhood",
-                "Miko" : "mmynttinen",
-                "Kelsey" : "jbilbert",
-                "Glenn" : "gwatson",
-                "Dzmitry" : "dmalyshau"
+                "Andrew" : "aosmond@mozilla.com",
+                "Jamie" : "jnicol@mozilla.com",
+                "Brad" : "bwerth@mozilla.com",
+                "Nical" : "nical.bugzilla@gmail.com",
+                "Jeff" : "jmuizelaar@mozilla.com",
+                "Sotaro" : "sikeda@mozilla.com",
+                "JimM" : "jmathies@mozilla.com",
+                "JimB" : "jblandy@mozilla.com",
+                "Jon" : "jbauman@mozilla.com",
+                "Lee" : "lsalzman@mozilla.com",
+                "Bob" : "bhood@mozilla.com",
+                "Miko" : "mmynttinen@mozilla.com",
+                "Kelsey" : "jbilbert@mozilla.com",
+                "Glenn" : "gwatson@mozilla.com",
+                "Dzmitry" : "dmalyshau@mozilla.com"
             }
         }
     };
@@ -99,13 +100,13 @@ function main(json)
   
     prepPage(NEEDINFO.contestants.size, "current");
 
-    for(var key in NEEDINFO.contestants) {
-        var id = NEEDINFO.contestants[key]
+    for (var key in NEEDINFO.contestants) {
+        var id = NEEDINFO.contestants[key];
         var url = NEEDINFO.bugzilla_rest_url;
         if(NEEDINFO.api_key.length) {
             url += "api_key=" + NEEDINFO.api_key + "&";
         }
-        url += NEEDINFO.fields_query.replace("{id}", id);
+        url += NEEDINFO.fields_query.replace("{id}", encodeURIComponent(id));
 
         retrieveInfoFor(url, key);
     }
@@ -130,7 +131,7 @@ function retrieveInfoFor(url, key)
 // generate random integer in the given range
 function randomNumber(min, max) { 
     return Math.round(Math.random() * (max - min) + min);
-} 
+}
 
 function prepPage(count, displayType)
 {
@@ -145,7 +146,7 @@ function prepPage(count, displayType)
         content += "<div class=\"nicount\" id=\"reportDiv_" + key + "\"><h3>"
                         + "<span id=\"star_" + key + "\"></span>&nbsp;" + key 
                         + "</h3>"
-                        + "<h5>(" + NEEDINFO.contestants[key] + "@mozilla.com)</h5>"
+                        + "<h5>(" + NEEDINFO.contestants[key] + ")</h5>"
                         + "<div id=\"data_" + key + "\""
                         + " class=\"data greyedout\">?</div></div>";
     }
@@ -169,8 +170,22 @@ function displayCountFor(key, data)
     else if (ni_count < 5) {
         star = "<img id=\"gold-star\" src=\"images/runner-up.png\" width=\"30\">";
     }
+
+    // build a Bugzilla "bug list" so clicking on the count will
+    // take you to all your needinfos
+    var bug_list = NEEDINFO.bugzilla_bug_list;
+    var bug_ids = "";
+    for (i = 0; i < data.bugs.length; ++i) {
+        if(bug_ids.length != 0) {
+            bug_ids += ",";
+        }
+        bug_ids += data.bugs[i].id;
+    }
+    bug_list += encodeURIComponent(bug_ids);
+    // https://bugzilla.mozilla.org/buglist.cgi?bug_id=1680458%2C1695986%2C1732373
+
     $("#star_" + key).replaceWith(star);
-    $("#data_" + key).replaceWith("<div id=\"data_" + key + "\" class=\"" + klass + "\">" + ni_count + "</div>");
+    $("#data_" + key).replaceWith("<div id=\"data_" + key + "\" class=\"" + klass + "\"><a href=\"" + bug_list + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + ni_count + "</a></div>");
 }
 
 function openSettings() {
