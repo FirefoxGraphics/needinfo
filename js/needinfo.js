@@ -71,7 +71,7 @@ $(document).ready(function () {
                 "Lee" : "lsalzman@mozilla.com",
                 "Bob" : "bhood@mozilla.com",
                 "Miko" : "mmynttinen@mozilla.com",
-                "Kelsey" : "jbilbert@mozilla.com",
+                "Kelsey" : "jgilbert@mozilla.com",
                 "Glenn" : "gwatson@mozilla.com",
                 "Dzmitry" : "dmalyshau@mozilla.com"
             }
