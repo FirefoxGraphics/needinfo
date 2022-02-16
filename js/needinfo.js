@@ -70,7 +70,7 @@ $(document).ready(function () {
                 "Jon" : "jbauman@mozilla.com",
                 "Lee" : "lsalzman@mozilla.com",
                 "Bob" : "bhood@mozilla.com",
-                "Miko" : "mmynttinen@mozilla.com",
+                "Miko" : "mikokm@gmail.com",
                 "Kelsey" : "jgilbert@mozilla.com",
                 "Glenn" : "gwatson@mozilla.com",
                 "Dzmitry" : "dmalyshau@mozilla.com"
