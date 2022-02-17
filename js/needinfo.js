@@ -66,7 +66,7 @@ $(document).ready(function () {
                 "Jeff" : "jmuizelaar@mozilla.com",
                 "Sotaro" : "sikeda@mozilla.com",
                 "JimM" : "jmathies@mozilla.com",
-                "JimB" : "jblandy@mozilla.com",
+                "JimB" : "jimb@mozilla.com",
                 "Jon" : "jbauman@mozilla.com",
                 "Lee" : "lsalzman@mozilla.com",
                 "Bob" : "bhood@mozilla.com",
