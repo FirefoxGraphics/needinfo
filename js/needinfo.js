@@ -73,7 +73,7 @@ $(document).ready(function () {
                 "Miko" : "mikokm@gmail.com",
                 "Kelsey" : "jgilbert@mozilla.com",
                 "Glenn" : "gwatson@mozilla.com",
-                "Dzmitry" : "dmalyshau@mozilla.com"
+                "Markus" : "mstange.moz@gmail.com"
             }
         }
     };
