@@ -72,6 +72,7 @@ $(document).ready(function () {
                 "Bob" : "bhood@mozilla.com",
                 "Miko" : "mikokm@gmail.com",
                 "Kelsey" : "jgilbert@mozilla.com",
+                "Ashley" : "ahale@mozilla.com",
                 "Glenn" : "gwatson@mozilla.com",
                 "Markus" : "mstange.moz@gmail.com"
             }
