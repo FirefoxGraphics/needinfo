@@ -59,7 +59,6 @@ $(document).ready(function () {
             "fields_query" : "f1=requestees.login_name&o2=equals&v2=needinfo%3F&f2=flagtypes.name&o1=equals&v1={id}&include_fields=id,summary",
             "api_key" : "",
             "contestants" : {
-                "Andrew" : "aosmond@mozilla.com",
                 "Jamie" : "jnicol@mozilla.com",
                 "Brad" : "bwerth@mozilla.com",
                 "Nical" : "nical.bugzilla@gmail.com",
@@ -70,11 +69,11 @@ $(document).ready(function () {
                 "Jon" : "jbauman@mozilla.com",
                 "Lee" : "lsalzman@mozilla.com",
                 "Bob" : "bhood@mozilla.com",
-                "Miko" : "mikokm@gmail.com",
                 "Kelsey" : "jgilbert@mozilla.com",
-                "Ashley" : "ahale@mozilla.com",
                 "Glenn" : "gwatson@mozilla.com",
-                "Markus" : "mstange.moz@gmail.com"
+                "Ashley" : "ahale@mozilla.com",
+                "Erich" : "egubler@mozilla.com",
+                "Teo" : "ttanasoaia@mozilla.com"
             }
         }
     };
