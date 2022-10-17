@@ -170,6 +170,9 @@ function displayCountFor(key, data)
     else if (ni_count < 5) {
         star = "<img id=\"gold-star\" src=\"images/runner-up.png\" width=\"30\">";
     }
+    else if (ni_count > 100) {
+        star = "<img id=\"gold-star\" src=\"images/knocked-out.png\" width=\"30\">";
+    }
 
     var bug_link = "" + ni_count;
     if(ni_count != 0) {
