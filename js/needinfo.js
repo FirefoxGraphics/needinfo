@@ -53,10 +53,11 @@ $(document).ready(function () {
       }
 
     var data = {
+        // example JSON: https://bugzilla.mozilla.org/rest/bug/1658986
         "needinfo" : {
             "bugzilla_rest_url": "https://bugzilla.mozilla.org/rest/bug?",
             "bugzilla_bug_list" : "https://bugzilla.mozilla.org/buglist.cgi?bug_id=",
-            "fields_query" : "f1=requestees.login_name&o2=equals&v2=needinfo%3F&f2=flagtypes.name&o1=equals&v1={id}&include_fields=id,summary",
+            "fields_query" : "f1=requestees.login_name&o2=equals&v2=needinfo%3F&f2=flagtypes.name&o1=equals&v1={id}&include_fields=id,summary,severity",
             "api_key" : "",
             "contestants" : {
                 "Jamie" : "jnicol@mozilla.com",
@@ -182,15 +183,64 @@ function displayCountFor(key, data)
         // https://bugzilla.mozilla.org/buglist.cgi?bug_id=1680458%2C1695986%2C1732373
 
         var bug_list = NEEDINFO.bugzilla_bug_list;
+        var severity_map = new Map();
         var bug_ids = "";
-        for (i = 0; i < data.bugs.length; ++i) {
+        for (var i = 0; i < data.bugs.length; ++i) {
             if(bug_ids.length != 0) {
                 bug_ids += ",";
             }
             bug_ids += data.bugs[i].id;
+
+            var severity = data.bugs[i].severity;
+            var has_key = severity_map.has(severity);
+            if (has_key == false) {
+                severity_map.set(severity, new Array());
+            }
+            severity_map.get(severity).push(data.bugs[i].id);
         }
         bug_list += encodeURIComponent(bug_ids);
-        bug_link = "<a href=\"" + bug_list + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + ni_count + "</a>";
+        bug_link = "<a href=\"" + bug_list + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + ni_count + "</a><font size=\"-1\"><table><tr><td colspan=\"5\"><hr/></td></tr>";
+
+        // sort severities by (descneding) size
+        var array = [];
+        for (let [key, value] of severity_map) {
+            array.push({name: key, value: value});
+        }
+        var sorted = array.sort(function(a, b) {
+            return (a.value.length < b.value.length) ? 1 : ((b.value.length < a.value.length) ? -1 : 0)
+        });
+        var col = 0;
+        bug_link += "<tr>";
+        for (var i = 0;i < sorted.length; ++i) {
+            var severity_list = NEEDINFO.bugzilla_bug_list;
+            var severity_ids = "";
+            for (var j = 0; j < sorted[i].value.length; ++j) {
+                if(severity_ids.length != 0) {
+                    severity_ids += ",";
+                }
+                severity_ids += sorted[i].value[j];
+            }
+            severity_list += encodeURIComponent(severity_ids);
+
+            bug_link += "<td align=\"right\"><a href=\"" + severity_list + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + sorted[i].name + "</a> :</td><td align=\"left\"><a href=\"" + severity_list + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + sorted[i].value.length + "</a></td>";
+            col += 1;
+            if(col == 2) {
+                bug_link += "</tr>";
+                // are we done?
+                if((i + 1) < sorted.length) {
+                    // start a new row
+                    bug_link += "<tr>";
+                }
+                col = 0;
+            }
+            else {
+                bug_link += "<td>/</td>";
+            }
+        }
+        if(col < 2) {
+            bug_link += "</tr>";
+        }
+        bug_link += "</table></font>";
     }
 
     $("#star_" + key).replaceWith(star);
